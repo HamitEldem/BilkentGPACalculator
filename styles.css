@@ -1,0 +1,758 @@
+:root {
+    /* Core colors */
+    --primary: #4f46e5;
+    --bg-color: #f8faff;
+    --sidebar-bg: #ffffff;
+    
+    /* Text colors */
+    --text-white: #ffffff;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    
+    /* Pill colors - Modern and vibrant */
+    --pill-1: #3b82f6;
+    --pill-2: #14b8a6;
+    --pill-3: #8b5cf6;
+    --pill-4: #f97316;
+    --pill-5: #ec4899;
+    
+    /* Functional colors */
+    --border: #e5e7eb;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --divider-color: #e2e8f0;
+    --credits-bg: #f0f9ff;
+    --credits-text: #0369a1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-header {
+    background: var(--primary);
+    padding: 1.25rem 0;
+    box-shadow: var(--shadow-sm);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.main-header h1 {
+    font-size: 1.25rem;
+    color: var(--text-white);
+    font-weight: 600;
+    text-align: left;
+    margin-left: 40px;
+}
+
+.container {
+    max-width: 2200px;
+    margin: 4rem 0 0;
+    padding: 1.5rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    background: var(--sidebar-bg);
+    box-shadow: var(--shadow-md);
+    border-radius: 12px;
+}
+
+.search-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+#courseSearch {
+    width: 100%;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--sidebar-bg);
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+#courseSearch::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+#courseSearch:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.05);
+}
+
+.search-results {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    background: var(--sidebar-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: scroll;
+    display: none;
+    z-index: 1000;
+    border: 1px solid var(--border);
+}
+
+.search-result-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.search-result-item:hover {
+    background: var(--bg-color);
+}
+
+.credits-summary, .selected-courses-container {
+    background: var(--sidebar-bg);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+}
+
+.credits-summary {
+    background: var(--credits-bg);
+    color: var(--credits-text);
+}
+
+.selected-courses-container h2 {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.course-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.course-pill {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.course-pill-content {
+    flex: 1;
+}
+
+.course-pill .course-code {
+    font-weight: 600;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.course-pill .course-credits {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+.remove-button {
+    margin-left: 0.5rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0 0.25rem;
+}
+
+.main-content {
+    padding: 0 2rem;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.course-list {
+    background: rgb(250, 250, 250);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    overflow: scroll;
+    margin-top: 1rem;
+}
+
+.course-list-header, .course-row {
+    display: grid;
+    grid-template-columns: 15% 50% 15% 20%;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.course-list-header {
+    background: #c7d2fe;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    font-weight: 600;
+    padding: 1.25rem 1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+}
+
+.course-row {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.course-row:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.course-code {
+    flex: none;
+    padding-right: 0.5rem;
+}
+
+.course-name {
+    flex: none;
+    padding-right: 0.5rem;
+}
+
+.course-credits, .col-credits {
+    flex: none;
+    text-align: left;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.course-grade, .col-grade {
+    flex: none;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+}
+
+.grade-select {
+    width: 100px;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: white;
+}
+
+.grade-select:hover, .grade-select:focus {
+    border-color: var(--primary);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem 1rem;
+    font-size: 0.875rem;
+    background: var(--bg-color);
+    border-radius: 8px;
+    margin-top: 0.5rem;
+}
+
+.col-points, .course-points {
+    flex: none;
+    text-align: left;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Update other column widths */
+.course-code {
+    flex: 0 0 15%;
+}
+.course-name {
+    flex: 0 0 40%;
+}
+.course-credits, .col-credits {
+    flex: 0 0 15%;
+}
+.course-grade, .col-grade {
+    flex: 0 0 15%;
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        padding: 0.75rem 0;
+        background: #6366f1;
+    }
+
+    .main-header h1 {
+        font-size: 1.125rem;
+    }
+
+    .container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: static;
+        padding: 0;
+        margin-bottom: 1rem;
+        box-shadow: none;
+        height: 50vh;
+    }
+
+    .search-container {
+        margin-bottom: 1.5rem;
+    }
+
+    .credits-summary {
+        display: none;
+    }
+    /* Selected Courses Section */
+    .selected-courses-section h2 {
+        text-align: center;
+        font-size: 1rem;
+        color: white;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .selected-courses {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .selected-course {
+        background: var(--primary);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .remove-course {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.25rem;
+        padding: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        opacity: 0.8;
+    }
+
+    .remove-course:hover {
+        opacity: 1;
+    }
+
+    /* Results Section */
+    .results-summary {
+    
+        background: white;
+        padding: 1rem;
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .results-summary h2 {
+        text-align: center;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-secondary);
+    }
+
+    .results-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .gpa-display {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gpa-number {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .honors-status {
+        text-align: center;
+    }
+
+    /* Add padding to prevent content from being hidden behind fixed results */
+    .course-list {
+        padding-bottom: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin-top: 2.25rem;
+        padding: 0.25rem;
+        gap: 0.125rem;
+    }
+
+  
+}
+
+.results-summary {
+    background: var(--sidebar-bg);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+}
+
+.results-summary h2 {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.results-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.gpa-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.gpa-number {
+    font-size: 1.25rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.honors-status {
+    text-align: right;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #10b981;
+}
+
+.selected-course {
+    display: inline-flex;
+    align-items: center;
+    background: var(--primary);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    margin: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.remove-course {
+    background: none;
+    border: none;
+    color: white;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.remove-course:hover {
+    opacity: 1;
+}
+
+.gpa-number {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.credits-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.credits-info:last-child {
+    margin-bottom: 0;
+}
+
+.course-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.course-table th {
+    background: var(--primary-light);
+    color: var(--text-primary);
+    text-align: left;
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.course-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.course-table .grade-select {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    width: 100px;
+}
+
+/* Column widths */
+.col-code { width: 15%; }
+.col-name { width: 50%; }
+.col-credits { width: 15%; }
+.col-grade { width: 20%; }
+
+.course-grade {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.course-list-header > div:last-child {
+    text-align: center;
+    padding-right: 0;
+}
+
+/* Align the Credits column to the center */
+.course-row > div:nth-child(3),
+.course-list-header > div:nth-child(3) {
+    text-align: center;
+}
+
+/* Fix grade column alignment */
+.course-grade {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Align the Grade header */
+.course-list-header > div:last-child {
+    text-align: center;
+    padding-right: 0;
+}
+
+/* Center align the Credits and Grade columns */
+.course-row > div:nth-child(3),
+.course-list-header > div:nth-child(3),
+.course-row > div:nth-child(4),
+.course-list-header > div:nth-child(4) {
+    text-align: center;
+    justify-self: center;
+}
+
+/* Style for the grade select dropdown */
+.grade-select {
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
+.honor-status {
+    font-size: 0.875rem;
+    color: var(--primary);
+    margin-top: 0.25rem;
+}
+
+.gpa-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Credits summary styling */
+.credits-summary {
+    background: var(--credits-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.credits-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+/* GPA and Honor Status styling */
+.gpa-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.gpa-number {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.honor-status {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+.honor-status.high-honor {
+    color: #10b981; /* Green color for high honor */
+}
+
+.honor-status.honor {
+    color: var(--primary); /* Primary color for regular honor */
+}
+
+/* Selected courses styling */
+.selected-courses-container {
+    background: var(--sidebar-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.selected-courses-container h2 {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
+}
+
+.course-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.course-pill {
+    background: var(--primary);
+    color: white;
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 1.5;
+    transition: all 0.2s ease;
+}
+
+.course-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.course-pill .course-code {
+    font-weight: 600;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 30px); /* Account for remove button */
+}
+
+.remove-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.remove-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.col-code {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 120px;
+}
+
+.course-list-header > div {
+    color: #1e293b;
+    font-weight: 600;
+}

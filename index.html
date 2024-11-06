@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilkent GPA Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1>Bilkent GPA Calculator</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="search-container">
+                <input type="text" id="courseSearch" placeholder="Search course code">
+                <div id="searchResults" class="search-results"></div>
+            </div>
+            
+           
+
+            <div class="selected-courses-container">
+                <h2>Selected Courses</h2>
+                <div class="selected-courses">
+                    <div id="selectedCoursesList" class="course-pills"></div>
+                    <div class="empty-state" id="emptyState">
+                        Search and select your courses
+                    </div>
+                </div>
+            </div>
+
+            <div class="credits-summary">
+                <div class="credits-info">
+                    <span>Total Credits</span>
+                    <span id="totalCredits" class="credits-number">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-divider"></div>
+
+        <div class="main-content">
+            <div class="course-list">
+                <div class="course-list-header">
+                    <div class="col-code">Course Code</div>
+                    <div class="col-name">Course Name</div>
+                    <div class="col-credits">Credits</div>
+                    <div class="col-grade">Grade</div>
+                </div>
+                <div id="courseListBody" class="course-list-body">
+                    <!-- Courses will be added here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
