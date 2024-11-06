@@ -756,3 +756,115 @@ body {
     color: #1e293b;
     font-weight: 600;
 }
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 0.5rem;
+        margin-top: 3rem;
+        gap: 0.5rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .course-list {
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+
+    .course-list-header {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .course-row {
+        padding: 0.75rem 0.5rem;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .course-code {
+        font-size: 0.75rem;
+    }
+
+    .course-name {
+        font-size: 0.75rem;
+    }
+
+    .course-credits {
+        font-size: 0.75rem;
+    }
+
+    .grade-select {
+        width: 70px;
+        padding: 0.25rem;
+        font-size: 0.75rem;
+    }
+
+    .search-container {
+        margin-bottom: 0.75rem;
+    }
+
+    #courseSearch {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+
+    .course-pill {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .credits-summary {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .credits-info {
+        font-size: 0.875rem;
+    }
+
+    .gpa-number {
+        font-size: 1.125rem;
+    }
+
+    .honor-status {
+        font-size: 0.75rem;
+    }
+
+    .main-header h1 {
+        font-size: 1rem;
+        margin-left: 1rem;
+    }
+
+    .main-header {
+        padding: 0.75rem 0;
+    }
+
+    .empty-state {
+        font-size: 0.75rem;
+        padding: 1rem 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .course-list-header, .course-row {
+        grid-template-columns: 20% 35% 20% 25%;
+        gap: 0.25rem;
+    }
+
+    .container {
+        margin-top: 2.5rem;
+        padding: 0.25rem;
+    }
+
+    .grade-select {
+        width: 60px;
+    }
+}
