@@ -11,9 +11,11 @@ let selectedCourses = [];
 function initializeSearch() {
     const searchInput = document.getElementById('courseSearch');
     const searchResults = document.getElementById('searchResults');
+    let selectedIndex = -1;
     
     searchInput.addEventListener('input', async (e) => {
         const searchTerm = e.target.value.trim().toUpperCase();
+        selectedIndex = -1;
         
         searchResults.style.display = searchTerm.length < 2 ? 'none' : 'block';
         
@@ -27,13 +29,46 @@ function initializeSearch() {
             const courses = await response.json();
             
             const filteredCourses = courses.filter(course => 
-                course.code.toUpperCase().includes(searchTerm)
+                course.code.replace(/\s+/g, '').toUpperCase().includes(searchTerm.replace(/\s+/g, ''))
             ).slice(0, 5);
             
             displaySearchResults(filteredCourses);
         } catch (error) {
             console.error('Error fetching courses:', error);
             searchResults.innerHTML = '<div class="search-result-item">Error loading courses</div>';
+        }
+    });
+
+    // Add keyboard navigation
+    searchInput.addEventListener('keydown', (e) => {
+        const items = searchResults.getElementsByClassName('search-result-item');
+        
+        switch(e.key) {
+            case 'ArrowDown':
+                e.preventDefault();
+                selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+                updateSelection(items, selectedIndex);
+                ensureVisible(items[selectedIndex]);
+                break;
+                
+            case 'ArrowUp':
+                e.preventDefault();
+                selectedIndex = Math.max(selectedIndex - 1, 0);
+                updateSelection(items, selectedIndex);
+                ensureVisible(items[selectedIndex]);
+                break;
+                
+            case 'Enter':
+                e.preventDefault();
+                if (selectedIndex >= 0 && items[selectedIndex]) {
+                    items[selectedIndex].click();
+                }
+                break;
+                
+            case 'Escape':
+                searchResults.style.display = 'none';
+                searchInput.blur();
+                break;
         }
     });
 
@@ -250,6 +285,32 @@ function updateTotalCredits() {
     const totalCreditsElement = document.querySelector('.credits-summary .credits-number');
     if (totalCreditsElement) {
         totalCreditsElement.textContent = total.toString();
+    }
+}
+
+function updateSelection(items, selectedIndex) {
+    Array.from(items).forEach((item, index) => {
+        if (index === selectedIndex) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+}
+
+function ensureVisible(element) {
+    if (!element) return;
+    
+    const parent = element.parentElement;
+    const elementTop = element.offsetTop;
+    const elementBottom = elementTop + element.offsetHeight;
+    const parentTop = parent.scrollTop;
+    const parentBottom = parentTop + parent.offsetHeight;
+    
+    if (elementTop < parentTop) {
+        parent.scrollTop = elementTop;
+    } else if (elementBottom > parentBottom) {
+        parent.scrollTop = elementBottom - parent.offsetHeight;
     }
 }
 
