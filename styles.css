@@ -115,9 +115,10 @@ body {
     left: 0;
     right: 0;
     background: var(--sidebar-bg);
-    border-radius: 12px;
+    border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow: scroll;
+    max-height: 200px;
+    overflow-y: auto;
     display: none;
     z-index: 1000;
     border: 1px solid var(--border);
@@ -130,10 +131,27 @@ body {
     color: var(--primary);
     font-weight: 600;
     font-size: 0.875rem;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+.search-result-item.selected {
+    background-color: var(--primary);
+    color: white;
 }
 
 .search-result-item:hover {
-    background: var(--bg-color);
+    background-color: var(--primary);
+    color: white;
+}
+
+.search-result-item mark {
+    background-color: rgba(79, 70, 229, 0.1);
+    color: var(--primary);
+    padding: 0.125rem 0.25rem;
+    border-radius: 4px;
+    font-weight: 700;
 }
 
 .credits-summary, .selected-courses-container {
@@ -644,7 +662,11 @@ body {
 /* Align the Grade header */
 .course-list-header > div:last-child {
     text-align: center;
-    padding-right: 0;
+    margin-right: 90px;
+}
+
+.course-list-header > div:nth-child(3) {
+    margin-right: 90px;
 }
 
 /* Center align the Credits and Grade columns */
@@ -812,6 +834,16 @@ body {
         min-height: auto;
         padding: 0.75rem;
         margin-bottom: 0.5rem;
+    }
+
+    .course-list-header > div:last-child {
+        text-align: center;
+        margin-right: 0px;
+    }
+    
+    .course-list-header > div:nth-child(3) {
+        margin-right: 0;
+        
     }
 
     .course-list {
